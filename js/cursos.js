@@ -472,7 +472,7 @@ window.updateQuizOnLanguageChange = function() {
 
 // Inicialización al cargar la página
 window.addEventListener('DOMContentLoaded', function() {
-    console.log("App Aprende En Tu Hogar cargada. Funciona completamente offline.");
+    console.log("Aprende En Tu Hogar cargada");
     
     // Agregar mensaje informativo para la descarga del APK
     if (installBtn) {
@@ -480,7 +480,7 @@ window.addEventListener('DOMContentLoaded', function() {
             if (navigator.userAgent.includes('Android')) {
                 // Mostrar mensaje instructivo para Android
                 setTimeout(() => {
-                    if (confirm("📱 Instrucciones para Android:\n\n1. Después de descargar, toca la notificación\n2. Permite 'Instalar desde fuentes desconocidas' (solo primera vez)\n3. Sigue los pasos para instalar\n\n¿Deseas ver estas instrucciones después de descargar?")) {
+                    if (confirm("Instrucciones para Android:\n1. Después de hacer click en Descargar\n2. Permite 'Instalar desde fuentes desconocidas'\n3. Realiza cuidadosamente los pasos")) {
                         // Guardar para mostrar después
                         localStorage.setItem('showInstallInstructions', 'true');
                     }
