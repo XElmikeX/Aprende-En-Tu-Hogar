@@ -474,22 +474,81 @@ restartQuizBtn.addEventListener('click', function() {
     startCourse(currentCourse);
 });
 
+/*--------------------------------------------------------------------- */
+// Variable para el evento de instalación
+let deferredPrompt;
+
 // Instalar la aplicación como PWA
 installBtn.addEventListener('click', async function() {
-    // En una aplicación real, aquí se manejaría la instalación de PWA
-    alert("En una aplicación real, este botón instalaría la app en tu dispositivo para uso offline. Para esta demostración, puedes guardar la página web en tu dispositivo.");
-    
-    // Para esta demostración, creamos un archivo descargable
-    const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'EducaRural.html';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Verificar si el navegador soporta la instalación
+    if (deferredPrompt) {
+        // Mostrar el prompt de instalación
+        deferredPrompt.prompt();
+        
+        // Esperar a que el usuario responda
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+            console.log('Usuario aceptó la instalación');
+            installBtn.style.display = 'none';
+        } else {
+            console.log('Usuario rechazó la instalación');
+        }
+        
+        // Limpiar el evento guardado
+        deferredPrompt = null;
+    } else {
+        // Si no se puede instalar, ofrecer descarga
+        alert("Tu navegador no soporta instalación directa. Puedes:\n\n1. En Chrome/Edge: Haz clic en el menú (⋮) → 'Instalar app'\n2. En Safari: Comparte → 'Añadir a pantalla de inicio'\n3. Descarga el archivo HTML para usar offline");
+        
+        // Crear archivo descargable como respaldo
+        const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'AprendeEnTuHogar.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
 });
+
+// Capturar el evento beforeinstallprompt
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevenir que el navegador muestre el prompt automático
+    e.preventDefault();
+    
+    // Guardar el evento para usarlo después
+    deferredPrompt = e;
+    
+    // Mostrar el botón de instalación
+    installBtn.style.display = 'inline-flex';
+    
+    // Cambiar texto del botón
+    installBtn.innerHTML = '<i class="fas fa-download"></i> Instalar App';
+});
+
+// Detectar si la app ya está instalada
+window.addEventListener('appinstalled', () => {
+    console.log('App instalada exitosamente');
+    installBtn.style.display = 'none';
+    deferredPrompt = null;
+});
+
+// Registrar Service Worker para funcionamiento offline
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registrado con éxito:', registration.scope);
+            })
+            .catch(error => {
+                console.log('Error registrando Service Worker:', error);
+            });
+    });
+}
+/*--------------------------------------------------------------------- */
 
 // Función para manejar cambios de idioma (llamada desde idiomas.js)
 window.updateQuizOnLanguageChange = function() {
