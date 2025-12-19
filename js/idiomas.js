@@ -30,9 +30,10 @@ const translations = {
         "back-courses": "Volver a Cursos",
         "repeat-course": "Repetir Curso",
         
-        // Instalación
-        "install-here": "INSTALACIÓN AQUI",
-        "install-app": "Instalar App",
+        // Instalación ACTUALIZADA
+        "install-here": "DESCARGA LA APP AQUÍ",
+        "install-app": "Descargar APK",
+        "install-instructions": "Descarga el APK e instálalo manualmente",
         "footer-desc": "Aprende En Tu Hogar diseñada para zonas rurales sin conexión a internet",
         
         // Alertas y mensajes
@@ -73,9 +74,10 @@ const translations = {
         "back-courses": "Yachaykunaman Kutiy",
         "repeat-course": "Yachayta Kutichiymanta",
         
-        // Instalación
-        "install-here": "WILLAY CHURANA KAYPI",
-        "install-app": "Appta Churanay",
+        // Instalación ACTUALIZADA
+        "install-here": "APP CHURANAPAQ DESCARGA KAYPI",
+        "install-app": "APKta Descargay",
+        "install-instructions": "APKta descargaspa llamk'anamanta churanay",
         "footer-desc": "Yachay Wasipi internetniyuq mana llaqtakunapaq kamachisqa",
         
         // Alertas y mensajes
@@ -116,9 +118,10 @@ const translations = {
         "back-courses": "Yatiqañanakarux Kutixaña",
         "repeat-course": "Yatiqañata Kutixaña",
         
-        // Instalación
-        "install-here": "UÑJAWI CHURANA AKANXA",
-        "install-app": "Appta Churaña",
+        // Instalación ACTUALIZADA
+        "install-here": "APP CHURANAPAX DESCARGASÑA AKANXA",
+        "install-app": "APK Descargaña",
+        "install-instructions": "APK descargasxañ mä llamk'anamanta churaña",
         "footer-desc": "Yatiqaña Utampi internetni jan markanakataki kamachi",
         
         // Alertas y mensajes

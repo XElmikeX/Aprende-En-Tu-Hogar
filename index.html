@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/decoracion.css">
 
     <!-- CONFIG DE INSTALACION -->
-    <!-- Después de <title> -->
     <meta name="apple-mobile-web-app-title" content="Aprende Hogar">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -137,15 +136,20 @@
         
         <footer class="footer">
             <p id="footer-desc">Aprende En Tu Hogar diseñada para zonas rurales sin conexión a internet</p>
-            <p data-key="install-here">INSTALACIÓN AQUI</p>
-            <button class="install-btn" id="installBtn">
-                <i class="fas fa-download"></i> <span data-key="install-app">Instalar App</span>
-            </button>
+            <p data-key="install-here">DESCARGA LA APP AQUÍ</p>
+            <!-- ENLACE DIRECTO AL APK -->
+            <a href="apk/app-release.apk" download="AprendeEnTuHogar.apk" class="install-btn" id="installBtn">
+                <i class="fas fa-download"></i> <span data-key="install-app">Descargar APK</span>
+            </a>
+            <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                Tamaño: 736 KB - Para Android 5.0+
+            </p>
             <p>© 2025 Aprende En Tu Hogar</p>
         </footer>
     </div>
-</body>
+    
     <script src="js/cursos.js"></script>
     <script src="js/idiomas.js"></script>
     <script src="js/cerrar.js"></script>
+</body>
 </html>

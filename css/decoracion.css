@@ -328,15 +328,35 @@ header {
 .install-btn {
     background-color: var(--success-color);
     color: white;
+    text-decoration: none; /* Importante para enlace */
     border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
+    padding: 12px 24px; /* Un poco más grande */
+    border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
     margin-top: 15px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    text-align: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.install-btn:hover {
+    background-color: #219653; /* Color más oscuro */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 83, 0.3);
+}
+
+.install-btn:active {
+    transform: translateY(0);
+}
+
+/* Asegurar que se vea como botón aunque sea enlace */
+a.install-btn {
+    text-decoration: none;
+    display: inline-flex;
 }
         
 @media (max-width: 768px) {
