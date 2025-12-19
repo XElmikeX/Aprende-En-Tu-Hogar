@@ -359,99 +359,150 @@ a.install-btn {
     display: inline-flex;
 }
         
+
 @media (max-width: 768px) {
-    .courses-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Mejorar visibilidad de opciones en móvil */
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
     
-    .quiz-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    .option {
+        padding: 18px 15px !important; /* Más padding para fácil toque */
+        font-size: 1.1rem !important;
+        min-height: 60px; /* Altura mínima para fácil toque */
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        background-color: #f8f9fa;
+        transition: all 0.2s;
+    }
+    
+    .option:hover, .option:active {
+        background-color: #e9ecef;
+        border-color: var(--secondary-color);
+        transform: scale(1.02);
+    }
+    
+    .option.selected {
+        background-color: var(--secondary-color);
+        color: white;
+        border-color: var(--secondary-color);
+        font-weight: 600;
+    }
+    
+    .option.correct {
+        background-color: var(--success-color);
+        color: white;
+        border-color: var(--success-color);
+    }
+    
+    .option.incorrect {
+        background-color: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+    }
+    
+    /* Mejorar texto de preguntas */
+    .question {
+        font-size: 1.4rem !important;
+        line-height: 1.5;
+        margin-bottom: 25px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid var(--secondary-color);
+    }
+    
+    /* Botones de navegación más grandes */
+    .nav-btn {
+        padding: 15px 25px !important;
+        font-size: 1.1rem !important;
+        min-width: 120px;
+        margin: 5px;
     }
     
     .quiz-footer {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .back-btn, .restart-btn {
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    .header-top {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .language-selector {
-        width: 100%;
-        justify-content: center;
-    }
-}
-        
-@media (max-width: 480px) {
-    .logo {
-        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         gap: 10px;
-    }
-            
-    .courses-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .language-selector {
-        flex-direction: column;
-        align-items: center;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
     }
     
-    .lang-btn {
-        width: 180px;
-        justify-content: center;
+    /* Asegurar que el contenedor del quiz sea visible */
+    .quiz-container {
+        padding: 20px 15px !important;
+        margin: 10px 0;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Ajustar título del quiz */
+    .quiz-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 10px;
+    }
+    
+    .question-counter {
+        font-size: 1rem;
+        padding: 8px 15px;
     }
 }
 
-/* Selector de idioma */
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 15px;
+/* Para pantallas muy pequeñas (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .option {
+        padding: 16px 12px !important;
+        font-size: 1rem !important;
+        min-height: 55px;
+    }
+    
+    .question {
+        font-size: 1.2rem !important;
+        padding: 12px;
+    }
+    
+    .nav-btn {
+        padding: 14px 20px !important;
+        font-size: 1rem !important;
+        min-width: 110px;
+    }
+    
+    .quiz-container {
+        padding: 15px 10px !important;
+    }
 }
 
-.language-selector {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Corregir problemas de toque en móviles */
+@media (hover: none) and (pointer: coarse) {
+    .option {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .option:active {
+        background-color: #e9ecef !important;
+        transform: scale(0.98) !important;
+    }
+    
+    .nav-btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .nav-btn:active {
+        transform: scale(0.98);
+    }
 }
 
-.lang-btn {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+/* Prevenir zoom en inputs en iOS */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important; /* Previene zoom automático en iOS */
+    }
 }
-
-.lang-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}
-
-.lang-btn.active {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    font-weight: 600;
-}
-
-/* Responsive para selector de idioma */

@@ -82,7 +82,7 @@ self.addEventListener('fetch', event => {
             // Solo cachear si es exitosa y es de nuestro dominio
             if (networkResponse.ok && 
                 event.request.url.startsWith(self.location.origin)) {
-              console.log('📥 Cacheando nuevo recurso:', event.request.url);
+              console.log('Cacheando nuevo recurso:', event.request.url);
               const responseToCache = networkResponse.clone();
               caches.open(CACHE_NAME)
                 .then(cache => {
@@ -92,7 +92,7 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           })
           .catch(error => {
-            console.log('❌ Error de red, intentando fallback:', error);
+            console.log('Error de red, intentando fallback:', error);
             
             // FALLBACKS ESPECÍFICOS:
             

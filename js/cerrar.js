@@ -88,3 +88,31 @@ function hideOfflineNotification() {
 if (!navigator.onLine) {
   showOfflineNotification();
 }
+
+// Script adicional para mejorar experiencia en móviles
+    document.addEventListener('DOMContentLoaded', function() {
+        // Prevenir comportamiento por defecto en toques
+        document.addEventListener('touchstart', function(e) {
+            if (e.target.classList.contains('option') || 
+                e.target.classList.contains('nav-btn') ||
+                e.target.classList.contains('start-btn')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        // Detectar si es móvil y agregar clase al body
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.body.classList.add('mobile-device');
+        }
+        
+        // Asegurar que las opciones sean seleccionables
+        setTimeout(function() {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.style.cursor = 'pointer';
+                option.style.userSelect = 'none';
+                option.style.webkitUserSelect = 'none';
+                option.style.msUserSelect = 'none';
+            });
+        }, 100);
+    });
