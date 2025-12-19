@@ -474,13 +474,58 @@ restartQuizBtn.addEventListener('click', function() {
     startCourse(currentCourse);
 });
 
-/*--------------------------------------------------------------------- */
-// Variable para el evento de instalación
+/*-------------------- */
+// Al principio del archivo cursos.js, después de las variables:
 let deferredPrompt;
+let isAppInstalled = false;
 
-// Instalar la aplicación como PWA
-installBtn.addEventListener('click', async function() {
-    // Verificar si el navegador soporta la instalación
+// En la parte de inicialización (al final del archivo), añade:
+window.addEventListener('DOMContentLoaded', function() {
+    console.log("App EducaRural cargada. Funciona completamente offline.");
+    
+    // Verificar si ya está instalada
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log("La app ya está instalada");
+        isAppInstalled = true;
+        installBtn.style.display = 'none';
+    }
+    
+    // Escuchar evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log("beforeinstallprompt event fired");
+        // Prevenir que Chrome muestre su propio banner
+        e.preventDefault();
+        // Guardar el evento para usarlo después
+        deferredPrompt = e;
+        
+        // Mostrar el botón de instalación
+        installBtn.style.display = 'inline-flex';
+        
+        // Actualizar el texto del botón
+        installBtn.innerHTML = '<i class="fas fa-download"></i> <span data-key="install-app">Instalar App</span>';
+        
+        // Forzar actualización de textos
+        if (window.translations && window.currentLanguage) {
+            const textElement = installBtn.querySelector('span[data-key="install-app"]');
+            if (textElement) {
+                textElement.textContent = window.translations[window.currentLanguage]["install-app"];
+            }
+        }
+    });
+    
+    // Escuchar cuando la app se instale
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App instalada exitosamente');
+        isAppInstalled = true;
+        installBtn.style.display = 'none';
+        
+        // Mostrar mensaje de confirmación
+        alert('¡App instalada exitosamente! Ahora puedes acceder desde tu pantalla de inicio.');
+    });
+});
+
+// Función simplificada para instalar la app
+async function installApp() {
     if (deferredPrompt) {
         // Mostrar el prompt de instalación
         deferredPrompt.prompt();
@@ -491,62 +536,197 @@ installBtn.addEventListener('click', async function() {
         if (outcome === 'accepted') {
             console.log('Usuario aceptó la instalación');
             installBtn.style.display = 'none';
+            
+            // Mostrar mensaje de éxito
+            showInstallSuccessMessage();
         } else {
             console.log('Usuario rechazó la instalación');
+            // Mostrar instrucciones alternativas
+            showAlternativeInstructions();
         }
         
-        // Limpiar el evento guardado
+        // Limpiar la referencia
         deferredPrompt = null;
     } else {
-        // Si no se puede instalar, ofrecer descarga
-        alert("Tu navegador no soporta instalación directa. Puedes:\n\n1. En Chrome/Edge: Haz clic en el menú (⋮) → 'Instalar app'\n2. En Safari: Comparte → 'Añadir a pantalla de inicio'\n3. Descarga el archivo HTML para usar offline");
-        
-        // Crear archivo descargable como respaldo
-        const blob = new Blob([document.documentElement.outerHTML], {type: 'text/html'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'AprendeEnTuHogar.html';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        // Si no hay beforeinstallprompt, mostrar instrucciones
+        showInstallInstructions();
     }
-});
+}
+/*---------------- */
 
-// Capturar el evento beforeinstallprompt
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevenir que el navegador muestre el prompt automático
+/*--------------------------------------------------------------------- */
+// Instalar la aplicación como PWA
+installBtn.addEventListener('click', async function(e) {
     e.preventDefault();
     
-    // Guardar el evento para usarlo después
-    deferredPrompt = e;
+    // Verificar si ya está instalada
+    if (isAppInstalled) {
+        alert('La app ya está instalada en tu dispositivo.');
+        return;
+    }
     
-    // Mostrar el botón de instalación
-    installBtn.style.display = 'inline-flex';
-    
-    // Cambiar texto del botón
-    installBtn.innerHTML = '<i class="fas fa-download"></i> Instalar App';
+    // Intentar instalar usando el prompt de instalación
+    await installApp();
 });
 
-// Detectar si la app ya está instalada
-window.addEventListener('appinstalled', () => {
-    console.log('App instalada exitosamente');
-    installBtn.style.display = 'none';
-    deferredPrompt = null;
-});
+// Función para mostrar mensaje de éxito
+function showInstallSuccessMessage() {
+    const message = `
+        <div class="install-success" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        ">
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                max-width: 90%;
+                width: 400px;
+                text-align: center;
+            ">
+                <div style="font-size: 4rem; color: #27ae60; margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">¡App Instalada!</h3>
+                <p style="margin-bottom: 20px; color: #666;">
+                    La aplicación ha sido instalada exitosamente en tu dispositivo.
+                    Ahora puedes acceder a ella desde tu pantalla de inicio como cualquier otra app.
+                </p>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    cursor: pointer;
+                ">
+                    ¡Entendido!
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', message);
+}
 
-// Registrar Service Worker para funcionamiento offline
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registrado con éxito:', registration.scope);
-            })
-            .catch(error => {
-                console.log('Error registrando Service Worker:', error);
-            });
-    });
+// Función para mostrar instrucciones de instalación
+function showInstallInstructions() {
+    const instructions = `
+        <div class="install-instructions" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        ">
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                max-width: 90%;
+                width: 400px;
+                text-align: center;
+            ">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">Cómo Instalar la App</h3>
+                
+                <div style="text-align: left; margin-bottom: 25px;">
+                    <div style="margin-bottom: 15px;">
+                        <h4><i class="fab fa-android"></i> Android (Chrome/Edge):</h4>
+                        <p>1. Toca el menú (⋮) en la esquina superior derecha</p>
+                        <p>2. Selecciona "Instalar app" o "Añadir a pantalla de inicio"</p>
+                        <p>3. Confirma la instalación</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <h4><i class="fab fa-apple"></i> iPhone/iPad (Safari):</h4>
+                        <p>1. Toca el ícono de compartir (□ con ↑)</p>
+                        <p>2. Desplázate y selecciona "Añadir a pantalla de inicio"</p>
+                        <p>3. Dale un nombre y toca "Añadir"</p>
+                    </div>
+                    
+                    <div>
+                        <h4><i class="fas fa-desktop"></i> Computadora:</h4>
+                        <p>• Chrome/Edge: Haz clic en el ícono de instalación en la barra de URL</p>
+                        <p>• O ve al menú → "Instalar Aprende En Tu Hogar"</p>
+                    </div>
+                </div>
+                
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    cursor: pointer;
+                ">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', instructions);
+}
+
+// Función para mostrar instrucciones alternativas si el usuario rechaza
+function showAlternativeInstructions() {
+    const message = `
+        <div class="install-alternative" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        ">
+            <div style="
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                max-width: 90%;
+                width: 400px;
+                text-align: center;
+            ">
+                <h3 style="color: #2c3e50; margin-bottom: 15px;">Instalación Manual</h3>
+                <p style="margin-bottom: 20px; color: #666;">
+                    Para instalar manualmente, toca el botón "Instalar App" nuevamente
+                    y sigue las instrucciones, o usa el menú de tu navegador.
+                </p>
+                <button onclick="this.parentElement.parentElement.remove()" style="
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    cursor: pointer;
+                ">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', message);
 }
 /*--------------------------------------------------------------------- */
 
