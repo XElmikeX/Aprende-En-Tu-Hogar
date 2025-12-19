@@ -242,38 +242,6 @@ installBtn.addEventListener('click', async function() {
     URL.revokeObjectURL(url);
 });
 
-// Hacer que la aplicación funcione offline
-// En una aplicación real, se usaría un Service Worker para cachear los recursos
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        // En una aplicación real, se registraría el Service Worker
-        console.log('Esta aplicación está preparada para funcionar offline');
-    });
-}
-
-// Navegar a la siguiente pregunta o finalizar
-nextBtn.addEventListener('click', function() {
-    if (userAnswers[currentQuestionIndex] === null) {
-        alert(getTranslatedMessage("select-answer"));
-        return;
-    }
-    
-    if (currentQuestionIndex < questionsData[currentCourse].length - 1) {
-        currentQuestionIndex++;
-        showQuestion();
-        
-        // Actualizar texto del botón "Siguiente/Finalizar"
-        if (currentQuestionIndex === questionsData[currentCourse].length - 1) {
-            nextBtn.textContent = getTranslatedMessage("finish");
-        } else {
-            nextBtn.textContent = getTranslatedMessage("next");
-        }
-    } else {
-        calculateResults();
-        showResults();
-    }
-});
-
 /*Mensajes de alerta traducibles */
 function getTranslatedMessage(key) {
     // Asegúrate de que el archivo de idiomas esté cargado
