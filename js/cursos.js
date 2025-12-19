@@ -59,7 +59,7 @@ const questionsData = {
         { question: "Si 3 lápices cuestan 6 soles, ¿cuánto cuesta 1 lápiz?", options: ["2 soles", "3 soles", "1 sol", "4 soles"], correct: 0 },
         { question: "Un bus tiene 40 asientos. Si ya hay 25 personas, ¿cuántos asientos vacíos hay?", options: ["15", "25", "40", "65"], correct: 0 },
         { question: "Si caminas 5 km en 1 hora, ¿cuántos km caminas en 3 horas?", options: ["15 km", "5 km", "8 km", "10 km"], correct: 0 }
-        // ... (se pueden agregar más preguntas hasta 100)
+        // ... (agregar más preguntas hasta 100 según sea necesario)
     ],
     
     comunicacion: [
@@ -97,7 +97,7 @@ const questionsData = {
         { question: "¿Qué es una oración?", options: ["Conjunto de palabras con sentido completo", "Una palabra", "Un signo de puntuación", "Un tipo de texto"], correct: 0 },
         { question: "¿Cuál es la sílaba tónica de 'árbol'?", options: ["ár", "bol", "ar", "árbol es aguda"], correct: 3 },
         { question: "¿Qué es un párrafo?", options: ["Conjunto de oraciones sobre un tema", "Una oración", "Un capítulo", "Un libro"], correct: 0 }
-        // ... (se pueden agregar más preguntas hasta 100)
+        // ... (agregar más preguntas hasta 100 según sea necesario)
     ],
     
     ciencias: [
@@ -135,7 +135,7 @@ const questionsData = {
         { question: "¿Qué es la contaminación?", options: ["Daño al medio ambiente", "Mejora del aire", "Limpieza del agua", "Cuidado de los animales"], correct: 0 },
         { question: "¿Qué son los animales en peligro de extinción?", options: ["Especies que pueden desaparecer", "Animales domésticos", "Animales muy comunes", "Animales artificiales"], correct: 0 },
         { question: "¿Qué es un ecosistema?", options: ["Comunidad de seres vivos y su ambiente", "Un solo animal", "Una planta", "Un mineral"], correct: 0 }
-        // ... (se pueden agregar más preguntas hasta 100)
+        // ... (agregar más preguntas hasta 100 según sea necesario)
     ],
     
     historia: [
@@ -173,7 +173,7 @@ const questionsData = {
         { question: "¿Qué guerra enfrentó al Perú contra Chile?", options: ["Guerra del Pacífico", "Guerra con Ecuador", "Guerra de Independencia", "Guerra Civil"], correct: 0 },
         { question: "¿Quién fue Miguel Grau?", options: ["Héroe de la Guerra del Pacífico", "Presidente del Perú", "Escritor peruano", "Científico peruano"], correct: 0 },
         { question: "¿En qué año se produjo la Batalla de Ayacucho?", options: ["1824", "1821", "1830", "1815"], correct: 0 }
-        // ... (se pueden agregar más preguntas hasta 100)
+        // ... (agregar más preguntas hasta 100 según sea necesario)
     ]
 };
 
@@ -209,13 +209,6 @@ const courseNames = {
     historia: "Historia del Perú"
 };
 
-// Función para seleccionar 10 preguntas aleatorias
-function selectRandomQuestions(course) {
-    const allQuestions = questionsData[course];
-    const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 10);
-}
-
 // Función para obtener mensajes traducidos
 function getTranslatedMessage(key) {
     if (window.translations && window.currentLanguage) {
@@ -225,12 +218,93 @@ function getTranslatedMessage(key) {
     return key;
 }
 
+// Función para mezclar un array
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Función para obtener preguntas traducidas
+function getTranslatedQuestions(course) {
+    // Si el idioma es español, usar las preguntas originales
+    if (window.currentLanguage === 'es' || !window.questionTranslations) {
+        return null;
+    }
+    
+    // Si hay traducciones para este curso en el idioma actual
+    if (window.questionTranslations[window.currentLanguage] && 
+        window.questionTranslations[window.currentLanguage][course]) {
+        return window.questionTranslations[window.currentLanguage][course];
+    }
+    
+    return null; // No hay traducción
+}
+
+// Función para seleccionar 10 preguntas aleatorias
+function selectRandomQuestions(course) {
+    // Primero intentar obtener preguntas traducidas
+    const translated = getTranslatedQuestions(course);
+    
+    if (translated && translated.length >= 10) {
+        // Si hay suficientes preguntas traducidas, usar esas
+        const shuffled = shuffleArray(translated);
+        return shuffled.slice(0, 10);
+    } else if (translated && translated.length > 0) {
+        // Si hay algunas preguntas traducidas pero no 10, mezclar con originales
+        const allOriginalQuestions = questionsData[course];
+        const neededQuestions = 10 - translated.length;
+        const shuffledOriginal = shuffleArray(allOriginalQuestions).slice(0, neededQuestions);
+        return [...translated, ...shuffledOriginal];
+    } else {
+        // Si no hay traducciones, usar solo preguntas originales
+        const allQuestions = questionsData[course];
+        const shuffled = shuffleArray(allQuestions);
+        return shuffled.slice(0, 10);
+    }
+}
+
 // Función para actualizar el texto del botón siguiente/finalizar
 function updateNextButtonText() {
     if (currentQuestionIndex === selectedQuestions.length - 1) {
         nextBtn.textContent = getTranslatedMessage("finish");
     } else {
         nextBtn.textContent = getTranslatedMessage("next");
+    }
+}
+
+// Función para actualizar textos cuando cambia el idioma
+function updateQuizLanguage() {
+    if (currentCourse) {
+        // Si hay un curso activo, actualizar las preguntas
+        const newQuestions = selectRandomQuestions(currentCourse);
+        selectedQuestions = newQuestions;
+        
+        // Reiniciar las respuestas del usuario
+        userAnswers = new Array(selectedQuestions.length).fill(null);
+        currentQuestionIndex = 0;
+        score = 0;
+        
+        // Actualizar la pregunta mostrada
+        showQuestion();
+        
+        // Actualizar textos de botones
+        prevBtn.textContent = getTranslatedMessage("prev");
+        updateNextButtonText();
+        backToCoursesBtn.textContent = getTranslatedMessage("back-courses");
+        restartQuizBtn.textContent = getTranslatedMessage("repeat-course");
+        
+        // Actualizar título del curso
+        const courseKey = currentCourse + '-title';
+        if (window.translations && window.translations[window.currentLanguage] && 
+            window.translations[window.currentLanguage][courseKey]) {
+            quizTitle.textContent = window.translations[window.currentLanguage][courseKey];
+        } else {
+            quizTitle.textContent = courseNames[currentCourse];
+        }
     }
 }
 
@@ -247,7 +321,7 @@ function startCourse(course) {
     currentCourse = course;
     currentQuestionIndex = 0;
     
-    // Seleccionar 10 preguntas aleatorias
+    // Seleccionar 10 preguntas aleatorias (con traducciones si aplica)
     selectedQuestions = selectRandomQuestions(course);
     
     userAnswers = new Array(selectedQuestions.length).fill(null);
@@ -257,9 +331,19 @@ function startCourse(course) {
     document.querySelector('.courses-section').style.display = 'none';
     quizContainer.style.display = 'block';
     resultsContainer.style.display = 'none';
-            
-    // Configurar el título del quiz
-    quizTitle.textContent = courseNames[course];
+    
+    // Configurar el título del quiz (traducido)
+    const courseKey = course + '-title';
+    if (window.translations && window.currentLanguage && 
+        window.translations[window.currentLanguage][courseKey]) {
+        quizTitle.textContent = window.translations[window.currentLanguage][courseKey];
+    } else {
+        quizTitle.textContent = courseNames[course];
+    }
+    
+    // Actualizar textos de botones
+    prevBtn.textContent = getTranslatedMessage("prev");
+    updateNextButtonText();
             
     // Mostrar la primera pregunta
     showQuestion();
@@ -350,6 +434,16 @@ function showResults() {
     quizContainer.style.display = 'none';
     resultsContainer.style.display = 'block';
     
+    // Actualizar título de resultados
+    const resultsTitle = document.querySelector('.results-title');
+    if (resultsTitle) {
+        resultsTitle.textContent = getTranslatedMessage("completed");
+    }
+    
+    // Actualizar botones
+    backToCoursesBtn.textContent = getTranslatedMessage("back-courses");
+    restartQuizBtn.textContent = getTranslatedMessage("repeat-course");
+    
     // Mostrar puntaje
     finalScoreEl.textContent = `${score}/${selectedQuestions.length}`;
     
@@ -397,28 +491,19 @@ installBtn.addEventListener('click', async function() {
     URL.revokeObjectURL(url);
 });
 
-// Función para manejar cambios de idioma
+// Función para manejar cambios de idioma (llamada desde idiomas.js)
 window.updateQuizOnLanguageChange = function() {
     if (currentCourse) {
-        // Si hay un curso activo, actualizar los textos del quiz
-        updateNextButtonText();
-        
-        // Actualizar textos de botones de navegación
-        if (prevBtn) {
-            prevBtn.textContent = getTranslatedMessage("prev");
-        }
-        if (nextBtn) {
-            updateNextButtonText();
-        }
-        if (backToCoursesBtn) {
-            backToCoursesBtn.textContent = getTranslatedMessage("back-courses");
-        }
-        if (restartQuizBtn) {
-            restartQuizBtn.textContent = getTranslatedMessage("repeat-course");
-        }
+        // Si hay un curso activo, actualizar las preguntas
+        updateQuizLanguage();
         
         // Si estamos en la pantalla de resultados, actualizar el mensaje
         if (resultsContainer.style.display === 'block' || resultsContainer.style.display === '') {
+            const resultsTitle = document.querySelector('.results-title');
+            if (resultsTitle) {
+                resultsTitle.textContent = getTranslatedMessage("completed");
+            }
+            
             // Recalcular y mostrar mensaje traducido
             let messageKey = "";
             if (score === selectedQuestions.length) {
@@ -434,6 +519,10 @@ window.updateQuizOnLanguageChange = function() {
             if (scoreMessageEl) {
                 scoreMessageEl.textContent = getTranslatedMessage(messageKey);
             }
+            
+            // Actualizar botones en resultados
+            backToCoursesBtn.textContent = getTranslatedMessage("back-courses");
+            restartQuizBtn.textContent = getTranslatedMessage("repeat-course");
         }
     }
 };

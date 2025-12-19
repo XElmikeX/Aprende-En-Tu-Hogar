@@ -507,7 +507,10 @@ function changeLanguage(lang) {
     
     // Si hay un curso activo, actualizar las preguntas traducidas
     if (window.currentCourse && window.currentQuestionIndex !== undefined) {
-        updateQuizQuestions();
+        // Llamar a la función en cursos.js para actualizar las preguntas
+        if (window.updateQuizOnLanguageChange) {
+            window.updateQuizOnLanguageChange();
+        }
     }
 }
 
