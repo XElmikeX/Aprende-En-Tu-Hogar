@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende En Tu Hogar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/decoracion.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h1 id="app-title">Aprende En Tu Hogar</h1>
+                </div>
+                <div class="language-selector">
+                    <button class="lang-btn active" data-lang="es">
+                        <i class="fas fa-language"></i> Español
+                    </button>
+                    <button class="lang-btn" data-lang="qu">
+                        <i class="fas fa-language"></i> Quechua
+                    </button>
+                    <button class="lang-btn" data-lang="ay">
+                        <i class="fas fa-language"></i> Aimara
+                    </button>
+                </div>
+            </div>
+            <p class="tagline" id="app-tagline">Tu futuro, Tú lo elijes</p>
+            <div class="offline-badge">
+                <i class="fas fa-wifi-slash"></i> <span id="offline-text">Offline</span>
+            </div>
+        </header>
+        
+        <section class="courses-section">
+            <h2 class="section-title" id="courses-title">Cursos Disponibles</h2>
+            <div class="courses-grid">
+                <!-- Matemática -->
+                <div class="course-card" data-course="matematica">
+                    <div class="course-icon mate">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title" data-key="math-title">Matemática</h3>
+                        <p class="course-description" data-key="math-desc">Suma, resta, multiplicación, división, potencias y raíces cuadradas</p>
+                        <button class="start-btn mate" data-course="matematica">
+                            <span data-key="start-course">Comenzar Curso</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Comunicación -->
+                <div class="course-card" data-course="comunicacion">
+                    <div class="course-icon comu">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title" data-key="com-title">Comunicación</h3>
+                        <p class="course-description" data-key="com-desc">Gramática, comprensión lectora y expresión escrita</p>
+                        <button class="start-btn comu" data-course="comunicacion">
+                            <span data-key="start-course">Comenzar Curso</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Ciencias -->
+                <div class="course-card" data-course="ciencias">
+                    <div class="course-icon cien">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title" data-key="sci-title">Ciencias</h3>
+                        <p class="course-description" data-key="sci-desc">Biología, física y química</p>
+                        <button class="start-btn cien" data-course="ciencias">
+                            <span data-key="start-course">Comenzar Curso</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Historia del Perú -->
+                <div class="course-card" data-course="historia">
+                    <div class="course-icon hist">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3 class="course-title" data-key="hist-title">Historia del Perú</h3>
+                        <p class="course-description" data-key="hist-desc">Desde las culturas preincaicas hasta la época republicana</p>
+                        <button class="start-btn hist" data-course="historia">
+                            <span data-key="start-course">Comenzar Curso</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contenedor del Quiz -->
+        <div class="quiz-container" id="quizContainer">
+            <div class="quiz-header">
+                <h2 class="quiz-title" id="quizTitle">Matemática</h2>
+                <div class="question-counter">
+                    <span data-key="question">Pregunta</span> <span id="currentQuestion">1</span> <span data-key="of">de</span> 10
+                </div>
+            </div>
+            
+            <div class="question" id="questionText">¿Cuánto es 15 + 27?</div>
+            
+            <div class="options-container" id="optionsContainer">
+                <!-- Las opciones se generarán dinámicamente -->
+            </div>
+            
+            <div class="quiz-footer">
+                <button class="nav-btn" id="prevBtn" data-key="prev">Anterior</button>
+                <button class="nav-btn" id="nextBtn" data-key="next">Siguiente</button>
+            </div>
+        </div>
+        
+        <!-- Contenedor de Resultados -->
+        <div class="results-container" id="resultsContainer">
+            <h2 class="results-title" data-key="completed">¡Curso Completado!</h2>
+            <div class="score" id="finalScore">0/10</div>
+            <p class="score-message" id="scoreMessage">¡Buen trabajo! Puedes volver a intentarlo o probar otro curso.</p>
+            <div>
+                <button class="back-btn" id="backToCourses" data-key="back-courses">Volver a Cursos</button>
+                <button class="restart-btn" id="restartQuiz" data-key="repeat-course">Repetir Curso</button>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p id="footer-desc">Aprende En Tu Hogar diseñada para zonas rurales sin conexión a internet</p>
+            <p data-key="install-here">INSTALACIÓN AQUI</p>
+            <button class="install-btn" id="installBtn">
+                <i class="fas fa-download"></i> <span data-key="install-app">Instalar App</span>
+            </button>
+            <p>© 2025 Aprende En Tu Hogar</p>
+        </footer>
+    </div>
+</body>
+    <script src="js/cursos.js"></script>
+    <script src="js/idiomas.js"></script>
+</html>
