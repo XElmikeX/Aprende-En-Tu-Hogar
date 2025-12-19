@@ -130,8 +130,365 @@ const translations = {
     }
 };
 
+// Traducciones de preguntas para cada curso
+const questionTranslations = {
+    es: {}, // Español ya tiene las preguntas originales
+    qu: {
+        "matematica": [
+            { 
+                question: "¿Imaynataq 15 + 27?", 
+                options: ["42", "32", "52", "37"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imaynataq 48 - 19?", 
+                options: ["27", "29", "31", "39"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Imaynataq 7 × 8?", 
+                options: ["54", "56", "64", "48"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Imaynataq 81 ÷ 9?", 
+                options: ["7", "8", "9", "10"], 
+                correct: 2 
+            },
+            { 
+                question: "¿Imaynataq 25 + 38?", 
+                options: ["53", "63", "73", "83"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Imaynataq 72 - 45?", 
+                options: ["27", "37", "47", "17"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imaynataq 9 × 6?", 
+                options: ["54", "56", "64", "48"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imaynataq 64 ÷ 8?", 
+                options: ["7", "8", "9", "6"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Imaynataq 1/2 + 1/4?", 
+                options: ["3/4", "1/2", "2/4", "1/8"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imaynataq 0.5 + 0.25?", 
+                options: ["0.75", "0.5", "0.25", "1.0"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imaynataq 50% de 200?", 
+                options: ["100", "50", "150", "200"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin área kachkan cuadradopi ladon 5?", 
+                options: ["25", "20", "15", "10"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin cuadrado kachkan 12?", 
+                options: ["144", "124", "132", "121"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin raíz cuadrada kachkan 64?", 
+                options: ["8", "6", "7", "9"], 
+                correct: 0 
+            }
+        ],
+        "comunicacion": [
+            { 
+                question: "¿Mayqin antónimo kachkan 'kusisqa'?", 
+                options: ["Llaki", "Kusisqa", "Kusikuy", "Samiyuq"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin kay rimakuna sutin?", 
+                options: ["Wasi", "Paway", "Anqas", "Utqay"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin sujeto kachkan 'Allqa parkepi pawaykun'?", 
+                options: ["Allqa", "Pawaykun", "Parkepi", "Parke"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Imayna rimam 'utqaylla'?", 
+                options: ["Adverbio", "Suti", "Sutichaq", "Ruray"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin sinónimo kachkan 'yachaysapa'?", 
+                options: ["Amawta", "Upa", "Ch'aki", "Q'ala"], 
+                correct: 0 
+            }
+        ],
+        "ciencias": [
+            { 
+                question: "¿Mayqin gas necesitan plantakuna fotosíntesispaq?", 
+                options: ["Dióxido de carbono", "Oxígeno", "Nitrógeno", "Hidrógeno"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin órgano bombea yawar runapa kurpusninpi?", 
+                options: ["Sonqo", "Surq'an", "Kukupin", "Ñutqu"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin animal mamífero?", 
+                options: ["Ballena", "Tiburón", "Cocodrilo", "Pingüino"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin planeta riqsisqa planeta pukata?", 
+                options: ["Marte", "Venus", "Júpiter", "Saturno"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin fuerza wañuchinchik Pacha Mama?", 
+                options: ["Gravedad", "Magnetismo", "Electricidad", "Fricción"], 
+                correct: 0 
+            }
+        ],
+        "historia": [
+            { 
+                question: "¿Mayqin civilización ruwarqan Machu Picchu?", 
+                options: ["Inka", "Chavín", "Moche", "Nazca"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin watapi declararqanku independencia Perú?", 
+                options: ["1821", "1810", "1824", "1830"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin cultura preincaica riqsisqa Líneas de Nazca?", 
+                options: ["Nazca", "Paracas", "Mochica", "Tiahuanaco"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Pitaq karqan último inca Tahuantinsuyo?", 
+                options: ["Atahualpa", "Pachacútec", "Huayna Cápac", "Manco Inca"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Mayqin batalla sellarqan independencia Perú?", 
+                options: ["Ayacucho", "Junín", "Angamos", "Miraflores"], 
+                correct: 0 
+            }
+        ]
+    },
+    ay: {
+        "matematica": [
+            { 
+                question: "¿Kawkjsa 15 + 27?", 
+                options: ["42", "32", "52", "37"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kawkjsa 48 - 19?", 
+                options: ["27", "29", "31", "39"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Kawkjsa 7 × 8?", 
+                options: ["54", "56", "64", "48"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Kawkjsa 81 ÷ 9?", 
+                options: ["7", "8", "9", "10"], 
+                correct: 2 
+            },
+            { 
+                question: "¿Kawkjsa 25 + 38?", 
+                options: ["53", "63", "73", "83"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Kawkjsa 72 - 45?", 
+                options: ["27", "37", "47", "17"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kawkjsa 9 × 6?", 
+                options: ["54", "56", "64", "48"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kawkjsa 64 ÷ 8?", 
+                options: ["7", "8", "9", "6"], 
+                correct: 1 
+            },
+            { 
+                question: "¿Kawkjsa 1/2 + 1/4?", 
+                options: ["3/4", "1/2", "2/4", "1/8"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kawkjsa 0.5 + 0.25?", 
+                options: ["0.75", "0.5", "0.25", "1.0"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kawkjsa 50% de 200?", 
+                options: ["100", "50", "150", "200"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna área tiykatxi cuadradopi ladon 5?", 
+                options: ["25", "20", "15", "10"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna cuadrado tiykatxi 12?", 
+                options: ["144", "124", "132", "121"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna raíz cuadrada tiykatxi 64?", 
+                options: ["8", "6", "7", "9"], 
+                correct: 0 
+            }
+        ],
+        "comunicacion": [
+            { 
+                question: "¿Kuna antónimo tiykatxi 'kusiña'?", 
+                options: ["Llaki", "Kusiña", "Kusisiña", "Saminchaña"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna kay aru sutin?", 
+                options: ["Uta", "Phinayaña", "Ch'uxña", "Jank'oki"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna sujeto tiykatxi 'Anu parquepi phinayasi'?", 
+                options: ["Anu", "Phinayasi", "Parquepi", "Parque"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna arup 'jank'oki'?", 
+                options: ["Adverbio", "Suti", "Sutichiri", "Luraña"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna sinónimo tiykatxi 'yatiri'?", 
+                options: ["Amtiri", "Juk'aki", "Ch'aki", "Q'ala"], 
+                correct: 0 
+            }
+        ],
+        "ciencias": [
+            { 
+                question: "¿Kuna gas plantanaka necesitan fotosíntesispa?", 
+                options: ["Dióxido de carbono", "Oxígeno", "Nitrógeno", "Hidrógeno"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna órgano bombea wila jaqenaka kurpuspi?", 
+                options: ["Lluqu", "Surq'an", "K'iwcha", "Lixwi"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna animal mamífero?", 
+                options: ["Ballena", "Tiburón", "Cocodrilo", "Pingüino"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna planeta yati qhispi planeta pukata?", 
+                options: ["Marte", "Venus", "Júpiter", "Saturno"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna fuerza jiwxapxi Pachamama?", 
+                options: ["Gravedad", "Magnetismo", "Electricidad", "Fricción"], 
+                correct: 0 
+            }
+        ],
+        "historia": [
+            { 
+                question: "¿Kuna civilización lurt'xi Machu Picchu?", 
+                options: ["Inka", "Chavín", "Moche", "Nazca"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna marapi declarapxi independencia Piruw?", 
+                options: ["1821", "1810", "1824", "1830"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna cultura preincaica yati qhispi Líneas de Nazca?", 
+                options: ["Nazca", "Paracas", "Mochica", "Tiahuanaco"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Khiti karxi último inca Tahuantinsuyo?", 
+                options: ["Atahualpa", "Pachacútec", "Huayna Cápac", "Manco Inca"], 
+                correct: 0 
+            },
+            { 
+                question: "¿Kuna batalla sellarxi independencia Piruw?", 
+                options: ["Ayacucho", "Junín", "Angamos", "Miraflores"], 
+                correct: 0 
+            }
+        ]
+    }
+};
+
 // Idioma actual (por defecto español)
 let currentLanguage = 'es';
+
+// Variable para almacenar las preguntas traducidas actuales
+let translatedQuestions = {};
+
+// Función para obtener preguntas traducidas
+function getTranslatedQuestions(course) {
+    // Si el idioma es español, usar las preguntas originales
+    if (currentLanguage === 'es') {
+        return null; // null indica usar preguntas originales
+    }
+    
+    // Si hay traducciones para este curso en el idioma actual
+    if (questionTranslations[currentLanguage] && questionTranslations[currentLanguage][course]) {
+        return questionTranslations[currentLanguage][course];
+    }
+    
+    return null; // No hay traducción, usar preguntas originales
+}
+
+// Función para mezclar preguntas
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Función para seleccionar preguntas traducidas aleatorias
+function selectTranslatedRandomQuestions(course) {
+    const translated = getTranslatedQuestions(course);
+    
+    // Si no hay traducciones, devolver null para usar preguntas originales
+    if (!translated) {
+        return null;
+    }
+    
+    // Mezclar y seleccionar 10 preguntas
+    const shuffled = shuffleArray(translated);
+    return shuffled.slice(0, 10);
+}
 
 // Cambiar idioma
 function changeLanguage(lang) {
@@ -145,16 +502,43 @@ function changeLanguage(lang) {
         }
     });
     
-    // Actualizar todos los textos traducibles
+    // Actualizar todos los textos traducibles de la interfaz
     updateTexts();
     
-    // Actualizar preguntas si estamos en un quiz
+    // Si hay un curso activo, actualizar las preguntas traducidas
     if (window.currentCourse && window.currentQuestionIndex !== undefined) {
-        updateQuizLanguage();
+        updateQuizQuestions();
     }
 }
 
-// Actualizar todos los textos
+// Actualizar preguntas del quiz cuando cambia el idioma
+function updateQuizQuestions() {
+    if (window.currentCourse && window.selectedQuestions) {
+        // Obtener nuevas preguntas traducidas
+        const newQuestions = selectTranslatedRandomQuestions(window.currentCourse);
+        
+        if (newQuestions) {
+            // Actualizar las preguntas seleccionadas
+            window.selectedQuestions = newQuestions;
+            
+            // Reiniciar las respuestas del usuario
+            window.userAnswers = new Array(newQuestions.length).fill(null);
+            
+            // Reiniciar al índice 0 si es necesario
+            window.currentQuestionIndex = 0;
+            
+            // Actualizar la pregunta mostrada
+            if (window.showQuestion) {
+                window.showQuestion();
+            }
+            
+            // Actualizar textos de la interfaz
+            updateTexts();
+        }
+    }
+}
+
+// Actualizar todos los textos de la interfaz
 function updateTexts() {
     // Elementos con data-key
     document.querySelectorAll('[data-key]').forEach(element => {
@@ -163,12 +547,15 @@ function updateTexts() {
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.placeholder = translations[currentLanguage][key];
             } else if (element.tagName === 'BUTTON' && element.id === 'nextBtn') {
-                // Caso especial para el botón "Siguiente/Finalizar"
-                const isLastQuestion = window.currentQuestionIndex === 
-                    (window.questionsData?.[window.currentCourse]?.length - 1);
-                element.textContent = isLastQuestion ? 
-                    translations[currentLanguage]['finish'] : 
-                    translations[currentLanguage][key];
+                // Manejar botón siguiente/finalizar
+                if (window.currentQuestionIndex !== undefined && window.selectedQuestions) {
+                    const isLastQuestion = window.currentQuestionIndex === window.selectedQuestions.length - 1;
+                    element.textContent = isLastQuestion ? 
+                        translations[currentLanguage]['finish'] : 
+                        translations[currentLanguage]['next'];
+                } else {
+                    element.textContent = translations[currentLanguage][key];
+                }
             } else {
                 element.textContent = translations[currentLanguage][key];
             }
@@ -181,7 +568,8 @@ function updateTexts() {
         'app-tagline': document.getElementById('app-tagline'),
         'offline-text': document.getElementById('offline-text'),
         'courses-title': document.getElementById('courses-title'),
-        'footer-desc': document.getElementById('footer-desc')
+        'footer-desc': document.getElementById('footer-desc'),
+        'quizTitle': document.getElementById('quizTitle')
     };
     
     for (const [key, element] of Object.entries(specialElements)) {
@@ -190,15 +578,22 @@ function updateTexts() {
         }
     }
     
+    // Traducir nombres de cursos en el título del quiz
+    if (window.currentCourse && window.courseNames) {
+        const quizTitle = document.getElementById('quizTitle');
+        if (quizTitle) {
+            // Usar traducción si existe, sino usar el nombre original
+            const courseKey = window.currentCourse + '-title';
+            if (translations[currentLanguage][courseKey]) {
+                quizTitle.textContent = translations[currentLanguage][courseKey];
+            } else {
+                quizTitle.textContent = window.courseNames[window.currentCourse];
+            }
+        }
+    }
+    
     // Guardar preferencia de idioma
     localStorage.setItem('app-language', currentLanguage);
-}
-
-// Actualizar preguntas del quiz
-function updateQuizLanguage() {
-    if (window.currentCourse && window.showQuestion) {
-        window.showQuestion();
-    }
 }
 
 // Inicializar selector de idioma
@@ -217,6 +612,61 @@ function initLanguageSelector() {
     }
 }
 
+// Función para obtener preguntas según el idioma actual
+window.getQuestionsByLanguage = function(course) {
+    const translated = selectTranslatedRandomQuestions(course);
+    return translated || null;
+};
+
+// Función para manejar cambios de idioma en el quiz
+window.updateQuizOnLanguageChange = function() {
+    if (window.currentCourse) {
+        updateQuizQuestions();
+        
+        // Actualizar textos de botones de navegación
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const backToCoursesBtn = document.getElementById('backToCourses');
+        const restartQuizBtn = document.getElementById('restartQuiz');
+        
+        if (prevBtn) {
+            prevBtn.textContent = translations[currentLanguage]['prev'] || 'Anterior';
+        }
+        if (nextBtn) {
+            const isLastQuestion = window.currentQuestionIndex === window.selectedQuestions.length - 1;
+            nextBtn.textContent = isLastQuestion ? 
+                translations[currentLanguage]['finish'] : 
+                translations[currentLanguage]['next'];
+        }
+        if (backToCoursesBtn) {
+            backToCoursesBtn.textContent = translations[currentLanguage]['back-courses'] || 'Volver a Cursos';
+        }
+        if (restartQuizBtn) {
+            restartQuizBtn.textContent = translations[currentLanguage]['repeat-course'] || 'Repetir Curso';
+        }
+        
+        // Si estamos en la pantalla de resultados, actualizar el mensaje
+        const resultsContainer = document.getElementById('resultsContainer');
+        if (resultsContainer && (resultsContainer.style.display === 'block' || resultsContainer.style.display === '')) {
+            const scoreMessageEl = document.getElementById('scoreMessage');
+            if (scoreMessageEl && window.score !== undefined && window.selectedQuestions) {
+                let messageKey = "";
+                if (window.score === window.selectedQuestions.length) {
+                    messageKey = "excellent-score";
+                } else if (window.score >= window.selectedQuestions.length * 0.7) {
+                    messageKey = "good-score";
+                } else if (window.score >= window.selectedQuestions.length * 0.5) {
+                    messageKey = "medium-score";
+                } else {
+                    messageKey = "low-score";
+                }
+                
+                scoreMessageEl.textContent = translations[currentLanguage][messageKey];
+            }
+        }
+    }
+};
+
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     initLanguageSelector();
@@ -232,3 +682,10 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
+
+// Exportar funciones para uso en otros archivos
+window.translations = translations;
+window.questionTranslations = questionTranslations;
+window.currentLanguage = currentLanguage;
+window.getTranslatedQuestions = getTranslatedQuestions;
+window.changeLanguage = changeLanguage;
