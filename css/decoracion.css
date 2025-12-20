@@ -361,6 +361,7 @@ a.install-btn {
         
 
 @media (max-width: 768px) {
+
     /* Mejorar visibilidad de opciones en móvil */
     .options-container {
         display: flex;
@@ -418,21 +419,55 @@ a.install-btn {
     
     /* Botones de navegación más grandes */
     .nav-btn {
-        padding: 15px 25px !important;
-        font-size: 1.1rem !important;
-        min-width: 120px;
+        padding: 18px 25px !important;
+        font-size: 1.2rem !important;
+        min-width: 140px;
+        min-height: 60px;
         margin: 5px;
+        border-radius: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    
+    .nav-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s;
     }
     
     .quiz-footer {
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 10px;
+        align-items: center;
+        padding: 20px 0;
         margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #eee;
+        gap: 15px;
+        flex-wrap: nowrap;
     }
+
+    .nav-btn {
+        flex: 1;
+        text-align: center;
+    }
+    
+    /* Mejorar feedback visual al tocar */
+    .nav-btn:hover, .nav-btn:active {
+        background-color: var(--secondary-color) !important;
+    }
+    
+    .nav-btn:disabled {
+        background-color: #bdc3c7 !important;
+        transform: none !important;
+        opacity: 0.7;
+    }
+}
     
     /* Asegurar que el contenedor del quiz sea visible */
     .quiz-container {
@@ -452,7 +487,7 @@ a.install-btn {
         font-size: 1rem;
         padding: 8px 15px;
     }
-}
+
 
 /* Para pantallas muy pequeñas (iPhone SE, etc) */
 @media (max-width: 375px) {
@@ -468,9 +503,14 @@ a.install-btn {
     }
     
     .nav-btn {
-        padding: 14px 20px !important;
-        font-size: 1rem !important;
-        min-width: 110px;
+        padding: 16px 20px !important;
+        font-size: 1.1rem !important;
+        min-width: 120px;
+        min-height: 55px;
+    }
+    
+    .quiz-footer {
+        gap: 10px;
     }
     
     .quiz-container {
@@ -506,3 +546,22 @@ a.install-btn {
         font-size: 16px !important; /* Previene zoom automático en iOS */
     }
 }
+
+body.mobile-device .nav-btn {
+    /* Estilos adicionales específicos para móviles */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+/* Mejorar el área de toque en todos los botones */
+.start-btn, .back-btn, .restart-btn {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+

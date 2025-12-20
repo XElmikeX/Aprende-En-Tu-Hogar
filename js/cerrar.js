@@ -90,29 +90,76 @@ if (!navigator.onLine) {
 }
 
 // Script adicional para mejorar experiencia en móviles
-    document.addEventListener('DOMContentLoaded', function() {
-        // Prevenir comportamiento por defecto en toques
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.classList.contains('option') || 
-                e.target.classList.contains('nav-btn') ||
-                e.target.classList.contains('start-btn')) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        // Detectar si es móvil y agregar clase al body
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            document.body.classList.add('mobile-device');
+document.addEventListener('DOMContentLoaded', function() {
+    // Prevenir comportamiento por defecto en toques
+    document.addEventListener('touchstart', function(e) {
+        if (e.target.classList.contains('option') || 
+            e.target.classList.contains('nav-btn') ||
+            e.target.classList.contains('start-btn')) {
+            e.preventDefault();
         }
+    }, { passive: false });
+    
+    // Detectar si es móvil y agregar clase al body
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        document.body.classList.add('mobile-device');
+    }
+    
+    // Asegurar que las opciones sean seleccionables
+    setTimeout(function() {
+        const options = document.querySelectorAll('.option');
+        options.forEach(option => {
+            option.style.cursor = 'pointer';
+            option.style.userSelect = 'none';
+            option.style.webkitUserSelect = 'none';
+            option.style.msUserSelect = 'none';
+        });
+    }, 100);
+});
+
+// Detectar móvil y ajustar comportamiento
+function initMobileOptimizations() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        console.log("Dispositivo móvil detectado, aplicando optimizaciones");
         
-        // Asegurar que las opciones sean seleccionables
-        setTimeout(function() {
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => {
-                option.style.cursor = 'pointer';
-                option.style.userSelect = 'none';
-                option.style.webkitUserSelect = 'none';
-                option.style.msUserSelect = 'none';
+        // Agregar clase específica para CSS
+        document.body.classList.add('mobile-device');
+        
+        // Mejorar botones de navegación
+        const navButtons = document.querySelectorAll('.nav-btn');
+        navButtons.forEach(btn => {
+            btn.style.cursor = 'pointer';
+            btn.style.userSelect = 'none';
+            btn.style.webkitUserSelect = 'none';
+            btn.style.msUserSelect = 'none';
+            
+            // Prevenir comportamiento por defecto del navegador en toques largos
+            btn.addEventListener('contextmenu', function(e) {
+                if (isMobile) {
+                    e.preventDefault();
+                    return false;
+                }
             });
-        }, 100);
-    });
+        });
+        
+        // Asegurar que los botones sean visibles y accesibles
+        setTimeout(() => {
+            const footer = document.querySelector('.quiz-footer');
+            if (footer) {
+                footer.style.position = 'relative';
+                footer.style.zIndex = '100';
+                footer.style.padding = '20px 0';
+                footer.style.marginTop = '30px';
+            }
+        }, 500);
+    }
+}
+
+// Llamar a la función cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileOptimizations();
+    
+    // ... resto del código existente ...
+});

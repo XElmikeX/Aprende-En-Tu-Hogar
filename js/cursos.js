@@ -351,6 +351,124 @@ function showQuestion() {
     updateNextButtonText();
 }
 
+/*-------------------------------------------------------------- */
+// Función para inicializar eventos táctiles en botones
+function initTouchEvents() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) return;
+    
+    console.log("Inicializando eventos táctiles para móvil");
+    
+    // Botón "Siguiente"
+    if (nextBtn) {
+        nextBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.95)';
+            this.style.opacity = '0.9';
+        }, { passive: false });
+        
+        nextBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(1)';
+            this.style.opacity = '1';
+            
+            // Simular click después de un pequeño delay
+            setTimeout(() => {
+                this.click();
+            }, 50);
+        }, { passive: false });
+        
+        nextBtn.addEventListener('touchcancel', function() {
+            this.style.transform = 'scale(1)';
+            this.style.opacity = '1';
+        });
+    }
+    
+    // Botón "Anterior"
+    if (prevBtn) {
+        prevBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.95)';
+            this.style.opacity = '0.9';
+        }, { passive: false });
+        
+        prevBtn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(1)';
+            this.style.opacity = '1';
+            
+            setTimeout(() => {
+                this.click();
+            }, 50);
+        }, { passive: false });
+        
+        prevBtn.addEventListener('touchcancel', function() {
+            this.style.transform = 'scale(1)';
+            this.style.opacity = '1';
+        });
+    }
+    
+    // Botones del curso
+    document.querySelectorAll('.start-btn').forEach(btn => {
+        btn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.95)';
+        }, { passive: false });
+        
+        btn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(1)';
+            
+            setTimeout(() => {
+                this.click();
+            }, 50);
+        }, { passive: false });
+    });
+}
+
+// MODIFICA la función startCourse para llamar a initTouchEvents
+function startCourse(course) {
+    currentCourse = course;
+    currentQuestionIndex = 0;
+    
+    selectedQuestions = selectRandomQuestions(course);
+    
+    userAnswers = new Array(selectedQuestions.length).fill(null);
+    score = 0;
+            
+    document.querySelector('.courses-section').style.display = 'none';
+    quizContainer.style.display = 'block';
+    resultsContainer.style.display = 'none';
+    
+    const courseKey = course + '-title';
+    if (window.translations && window.currentLanguage && 
+        window.translations[window.currentLanguage][courseKey]) {
+        quizTitle.textContent = window.translations[window.currentLanguage][courseKey];
+    } else {
+        quizTitle.textContent = courseNames[course];
+    }
+    
+    prevBtn.textContent = getTranslatedMessage("prev");
+    updateNextButtonText();
+    
+    // Inicializar eventos táctiles
+    initTouchEvents();
+            
+    showQuestion();
+}
+
+// Agregar al final del evento DOMContentLoaded
+window.addEventListener('DOMContentLoaded', function() {
+    console.log("Aprende En Tu Hogar cargada");
+    
+    // Inicializar eventos táctiles
+    initTouchEvents();
+    
+    // ... resto del código existente ...
+});
+/*-------------------------------------------------------------- */
+
 // Seleccionar una opción
 function selectOption(optionIndex) {
     document.querySelectorAll('.option').forEach(option => {
