@@ -1,23 +1,23 @@
 ---------------------------------------------------
 Here are the ownership and the certification details
-of the Aprende En Tu Hogar 3.0
+of the Aprende En Tu Casa 4.0
 ---------------------------------------------------
 
-app_name - 						Aprende En Tu Hogar
-app_alias - 					aprendeentuhogar
+app_name - 						Aprende En Tu Casa
+app_alias - 					aprendeentucasa
 app_author_name - 				My Company
 app_author_organizational - 	My Company
 app_author_organization - 		My Company
 app_author_locality - 			My Company
 app_author_state - 				Ancash
 app_author_country - 			Peru
-app_password - 					1axX2DY7ar9I
-app_versionName - 				versionName "3.0"
-app_versionCode - 				300
+app_password - 					QRixm2iTkL05
+app_versionName - 				versionName "4.0"
+app_versionCode - 				400
 
 ---------------------------------------------------
 The certification was created by WebIntoApp.com at
-the Friday 19th of December 2025 07:56:05 AM
+the Saturday 20th of December 2025 01:29:58 AM
 
 https://webintoapp.com
 ---------------------------------------------------
