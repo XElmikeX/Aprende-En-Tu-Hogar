@@ -358,8 +358,6 @@ function initTouchEvents() {
     
     if (!isMobile) return;
     
-    console.log("Inicializando eventos táctiles para móvil");
-    
     // Botón "Siguiente"
     if (nextBtn) {
         nextBtn.addEventListener('touchstart', function(e) {
@@ -465,7 +463,6 @@ window.addEventListener('DOMContentLoaded', function() {
     // Inicializar eventos táctiles
     initTouchEvents();
     
-    // ... resto del código existente ...
 });
 /*-------------------------------------------------------------- */
 
@@ -489,12 +486,7 @@ prevBtn.addEventListener('click', function() {
 });
 
 // Navegar a la siguiente pregunta o finalizar
-nextBtn.addEventListener('click', function() {
-    if (userAnswers[currentQuestionIndex] === null) {
-        alert(getTranslatedMessage("select-answer"));
-        return;
-    }
-            
+nextBtn.addEventListener('click', function() {      
     if (currentQuestionIndex < selectedQuestions.length - 1) {
         currentQuestionIndex++;
         showQuestion();
@@ -509,9 +501,11 @@ nextBtn.addEventListener('click', function() {
 function calculateResults() {
     score = 0;
     for (let i = 0; i < selectedQuestions.length; i++) {
-        if (userAnswers[i] === selectedQuestions[i].correct) {
+        // Solo suma puntos si hay una respuesta y es correcta
+        if (userAnswers[i] !== null && userAnswers[i] === selectedQuestions[i].correct) {
             score++;
         }
+        // Si userAnswers[i] es null, significa que no se respondió, por lo tanto no suma puntos
     }
 }
 
